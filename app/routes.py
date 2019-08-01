@@ -14,7 +14,11 @@ mongo = PyMongo(app)
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    wishlist = mongo.db.wishlist
+    gustavo_wishlist = list(wishlist.find({'name':'gustavo'}))
+    logan_wishlist = list(wishlist.find({'name':'logan'}))
+    sean_wishlist = list(wishlist.find({'name':'sean'}))
+    return render_template('index.html', gustavo_wishlist=gustavo_wishlist, logan_wishlist=logan_wishlist, sean_wishlist=sean_wishlist)
     
 @app.route('/wish', methods=['GET', 'POST'])
 def wish():
